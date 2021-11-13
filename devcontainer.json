@@ -1,22 +1,56 @@
 {
-	"name": "Ubuntu",
+	"name": "Clojure",
 	"build": {
 		"dockerfile": "Dockerfile",
 		// Update 'VARIANT' to pick an Ubuntu version: hirsute, focal, bionic
 		// Use hirsute or bionic on local arm64/Apple Silicon.
-		"args": { "VARIANT": "focal" }
+		"args": {
+			// Use the VARIANT arg to pick a Debian OS version: buster, bullseye
+			// Use bullseye when running on local arm64/Apple Silicon.
+			"VARIANT": "buster",
+			// Options
+			"INSTALL_MAVEN": "false",
+			"INSTALL_GRADLE": "false",
+			"NODE_VERSION": "lts/*"
+		}
 	},
 
 	// Set *default* container specific settings.json values on container create.
-	"settings": {},
-
-
+	"settings": {
+		"java.home": "/docker-java-home",
+		"java.import.gradle.java.home": "/usr/local/sdkman/candidates/java/current",
+		"java.configuration.runtimes": [
+			{
+				"default": true,
+				"name": "JavaSE-1.8",
+				"path": "/usr/local/sdkman/candidates/java/current"
+			}
+		]
+	},
 	// Add the IDs of extensions you want installed when the container is created.
-	"extensions": [],
+	"extensions": [
+		// my common extensions
+		"mutantdino.resourcemonitor",
+		"formulahendry.code-runner",
+		"asciidoctor.asciidoctor-vscode",
+		"donjayamanne.githistory",
+		"mhutchie.git-graph",
+		"alefragnani.bookmarks",
+		"github.vscode-pull-request-github",
+		"eamodio.gitlens",
+		"hoovercj.vscode-power-mode",
+		"vtrois.gitmoji-vscode",
+		// java
+		"vscjava.vscode-java-pack"
+	],
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],
 
+	"mounts": [
+		"source=${localEnv:HOME}/.ssh,target=/home/vscode/.ssh,type=bind,consistency=cached",
+		"source=${localEnv:HOME}/.gnupg,target=/home/vscode/.gnupg,type=bind,consistency=cached",
+	]
 	// Use 'postCreateCommand' to run commands after the container is created.
 	// "postCreateCommand": "uname -a",
 
