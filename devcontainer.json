@@ -40,8 +40,13 @@
 		"eamodio.gitlens",
 		"hoovercj.vscode-power-mode",
 		"vtrois.gitmoji-vscode",
+		"ms-vsliveshare.vsliveshare-pack",
+		"esbenp.prettier-vscode",
 		// java
-		"vscjava.vscode-java-pack"
+		"vscjava.vscode-java-pack",
+		// clojure
+		// "avli.clojure",
+		"betterthantomorrow.calva"
 	],
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
