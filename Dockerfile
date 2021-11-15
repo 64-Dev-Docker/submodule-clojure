@@ -52,6 +52,12 @@ COPY custom-scripts/clojure/* /tmp/library-scripts/
 RUN bash /tmp/library-scripts/install-clojure.sh "${USERNAME}" \
     && apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/* /tmp/library-scripts/
 
+# Install exercism
+ARG INSTALL_EXERCISM="true"
+COPY custom-scripts/exercism/* /tmp/library-scripts/
+RUN if [ "${INSTALL_EXERCISM}" = "true" ]; then bash /tmp/library-scripts/install-exercism.sh "${USERNAME}" ; fi \
+    && apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/* /tmp/library-scripts/
+
 # Remove library scripts for final image
 RUN rm -rf /tmp/library-scripts
 
