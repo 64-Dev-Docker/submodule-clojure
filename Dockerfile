@@ -37,6 +37,7 @@ RUN /bin/bash /tmp/library-scripts/update-zsh.sh "${USERNAME}" \
 # Configure GIT ...
 COPY custom-scripts/git/* /tmp/library-scripts/
 RUN /bin/bash /tmp/library-scripts/configure-git.sh "${USERNAME}" \
+    && /bin/bash /tmp/library-scripts/install-gh.sh "${USERNAME}" \
     && apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/* /tmp/library-scripts/
 
 # Configure SSH ... 
